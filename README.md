@@ -11,7 +11,7 @@ and never miss a premiere — with or without an account.
 
 <!-- Badges: replace the placeholders once CI and the license are in place -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-teal.svg)](./LICENSE)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/salimmay/zenith/ci.yml?branch=main)](https://github.com/salimmay/zenith/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/salimmay/Zenith-tracker/ci.yml?branch=main)](https://github.com/salimmay/Zenith-tracker/actions)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#-contributing)
 ![Platforms](https://img.shields.io/badge/platforms-Android%20%7C%20iOS%20%7C%20Web-lightgrey)
 ![Expo SDK](https://img.shields.io/badge/Expo%20SDK-57-000020)
@@ -233,7 +233,7 @@ Contributions of every size are welcome — bug reports, ideas, copy fixes and c
    ```
 4. **Open a pull request** describing *what* changed and *why*. Screenshots or a short screen recording help a lot for UI changes.
 
-> Found a bug but don't have time to fix it? [Open an issue](https://github.com/salimmay/zenith/issues) — a clear description of what happened is already a big help.
+> Found a bug but don't have time to fix it? [Open an issue](https://github.com/salimmay/Zenith-tracker/issues) — a clear description of what happened is already a big help.
 
 ---
 
@@ -246,5 +246,3 @@ Distributed under the **MIT License**. See [`LICENSE`](./LICENSE) for details.
 Metadata and images provided by [TMDB](https://www.themoviedb.org). This product uses the TMDB API but is not endorsed or certified by TMDB.
 
 </div>
-#   Z e n i t h - t r a c k e r  
- 
