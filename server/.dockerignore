@@ -1,0 +1,9 @@
+# Never ship secrets or local installs into the image or the upload.
+.env
+.env.*
+!.env.example
+node_modules
+test
+npm-debug.log
+.vercel
+vercel.json

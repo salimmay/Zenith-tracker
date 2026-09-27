@@ -27,6 +27,18 @@ app.use(express.json({ limit: '1mb' }));
 app.get('/', (_req, res) => res.json({ name: 'Zenith Tracker API', version: 2 }));
 app.get('/health', (_req, res) => res.json({ ok: true }));
 
+// Touches the database. A weekly scheduler ping here keeps a free Atlas cluster
+// from auto-pausing after 60 idle days.
+app.get('/health/db', async (_req, res) => {
+  try {
+    const conn = await connectDB();
+    await conn.db.admin().ping();
+    res.json({ ok: true, db: 'up' });
+  } catch {
+    res.status(503).json({ ok: false, db: 'down' });
+  }
+});
+
 // Public app config. `ads.enabled` is a remote kill switch for every ad slot.
 app.get('/api/config', (_req, res) => {
   res.json({ ads: { enabled: process.env.ADS_ENABLED !== 'false' } });

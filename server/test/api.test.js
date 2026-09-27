@@ -118,6 +118,12 @@ test('history-backed stats follow watches, undo, movies and removal', async () =
   assert.equal(stats.body.period.minutes, 350);
 });
 
+test('health/db pings the database (keep-alive endpoint)', async () => {
+  const res = await fetch(base.replace(/\/api$/, '/health/db'));
+  assert.equal(res.status, 200);
+  assert.deepEqual(await res.json(), { ok: true, db: 'up' });
+});
+
 test('config exposes the ads kill switch and users start with ads', async () => {
   delete process.env.ADS_ENABLED;
   assert.equal((await call('GET', '/config')).body.ads.enabled, true);
