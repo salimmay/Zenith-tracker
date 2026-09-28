@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Zenith Tracker</title>
+  <meta name="description" content="Privacy Policy for Zenith Tracker TV, movie and anime tracking application.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0E1111;
+      --card-bg: #161B1B;
+      --card-border: #232B2B;
+      --text: #F3F4F6;
+      --text-muted: #9CA3AF;
+      --teal: #14B8A6;
+      --teal-glow: rgba(20, 184, 166, 0.15);
+      --font: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.7;
+      padding: 40px 20px 80px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .logo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--teal);
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    .last-updated {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--teal);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 18px 0 8px;
+      color: #FFF;
+    }
+    p {
+      margin-bottom: 14px;
+      color: #D1D5DB;
+      font-size: 15px;
+    }
+    ul {
+      margin-left: 20px;
+      margin-bottom: 14px;
+      color: #D1D5DB;
+      font-size: 15px;
+    }
+    li {
+      margin-bottom: 6px;
+    }
+    a {
+      color: var(--teal);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo-badge">
+        <span>🎬</span> Zenith Tracker
+      </div>
+      <h1>Privacy Policy</h1>
+      <p class="last-updated">Last updated: September 28, 2026</p>
+    </header>
+
+    <div class="card">
+      <h2>1. Overview</h2>
+      <p>Zenith Tracker ("we", "our", or "us") provides the Zenith Tracker mobile application and API service. We believe in privacy by design: <strong>Zenith Tracker is fully functional without creating an account</strong>. This policy explains what information is collected, how it is used, and how your privacy is protected.</p>
+    </div>
+
+    <div class="card">
+      <h2>2. Information We Collect</h2>
+      <h3>A. Guest Mode (No Account Required)</h3>
+      <p>If you use Zenith Tracker without creating an account, all your watchlist items, progress check-offs, and preferences are stored <strong>strictly locally on your device</strong>. This data is never sent to our account databases unless you explicitly sign up to back up your library.</p>
+
+      <h3>B. Account Registration (Optional)</h3>
+      <p>If you choose to create an account to synchronize your watch history across multiple devices, we collect:</p>
+      <ul>
+        <li><strong>Username & Email:</strong> Used for authentication and account recovery.</li>
+        <li><strong>Password:</strong> Stored strictly as a cryptographic hash (using bcrypt); we never have access to plain-text passwords.</li>
+        <li><strong>Watch History & Library:</strong> Shows, movies, seasons, and episodes you track.</li>
+      </ul>
+
+      <h3>C. Technical & Diagnostic Logs</h3>
+      <p>When connecting to our servers, standard diagnostic data (such as temporary IP addresses for rate limiting and app error reports) may be temporarily processed to ensure reliability and prevent abuse.</p>
+    </div>
+
+    <div class="card">
+      <h2>3. Third-Party Integrations & Advertising</h2>
+      <h3>A. The Movie Database (TMDB)</h3>
+      <p>Zenith fetches public movie and TV metadata from TMDB. Your personal information, watch history, or email are never shared with TMDB.</p>
+
+      <h3>B. Trakt.tv (Optional Sync)</h3>
+      <p>If you voluntarily connect your Trakt account via OAuth device login, Zenith mirrors your watched episodes to your Trakt profile. You can disconnect Trakt anytime from the Settings screen.</p>
+
+      <h3>C. Google AdMob (Advertisements)</h3>
+      <p>On mobile platforms, Zenith displays banner ads provided by Google Mobile Ads (AdMob). Google AdMob may use device identifiers (such as Android Advertising ID) to serve non-personalized or personalized ads depending on your consent.</p>
+      <p><strong>Consent Management:</strong> Users in the EEA/UK are presented with a Google-certified consent form. You can change your ad privacy preferences anytime via <strong>Settings → Ad privacy choices</strong>.</p>
+    </div>
+
+    <div class="card">
+      <h2>4. Data Security & Storage</h2>
+      <p>All data exchanged between Zenith Tracker and our servers is encrypted using modern <strong>HTTPS (TLS)</strong> encryption. Account data is securely housed in MongoDB Atlas with encryption at rest and in transit.</p>
+    </div>
+
+    <div class="card">
+      <h2>5. Your Rights & Data Deletion</h2>
+      <p>You own your data. You may request deletion of your account and all associated watch history at any time directly in the app under <strong>Settings → Delete Account</strong> or by emailing us. All data will be permanently wiped from our systems.</p>
+    </div>
+
+    <div class="card">
+      <h2>6. Children's Privacy</h2>
+      <p>Zenith Tracker is not directed at children under the age of 13. We do not knowingly collect personal identifiable information from children under 13.</p>
+    </div>
+
+    <div class="card">
+      <h2>7. Contact Us</h2>
+      <p>If you have questions about this Privacy Policy, you can reach out at:</p>
+      <p><strong>Email:</strong> <a href="mailto:salimmay.dev@gmail.com">salimmay.dev@gmail.com</a><br>
+      <strong>GitHub:</strong> <a href="https://github.com/salimmay/Zenith-tracker" target="_blank" rel="noopener">github.com/salimmay/Zenith-tracker</a></p>
+    </div>
+
+    <footer>
+      <p>© 2026 Zenith Tracker. All rights reserved.</p>
+    </footer>
+  </div>
+</body>
+</html>
