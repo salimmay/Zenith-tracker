@@ -5,7 +5,15 @@ const { HttpError } = require('./errors');
 const http = axios.create({
   baseURL: 'https://api.themoviedb.org/3',
   timeout: 8000,
-  params: { api_key: config.tmdbApiKey, language: 'en-US' },
+});
+
+http.interceptors.request.use((req) => {
+  req.params = {
+    api_key: config.tmdbApiKey,
+    language: 'en-US',
+    ...req.params,
+  };
+  return req;
 });
 
 // ─── Tiny TTL cache ───────────────────────────────────────────────────────────
@@ -22,6 +30,9 @@ const TTL = {
 };
 
 async function get(path, params = {}, ttl = TTL.show) {
+  if (!config.tmdbApiKey) {
+    throw new HttpError(500, 'TMDB_API_KEY is not configured on the server');
+  }
   const key = path + JSON.stringify(params);
   const hit = cache.get(key);
   if (hit && hit.expiresAt > Date.now()) return hit.data;

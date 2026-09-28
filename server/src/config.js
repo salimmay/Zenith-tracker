@@ -16,7 +16,7 @@ const config = {
   mongoUri: required('MONGO_URI'),
   jwtSecret: required('JWT_SECRET'),
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '30d',
-  tmdbApiKey: required('TMDB_API_KEY'),
+  tmdbApiKey: process.env.TMDB_API_KEY || '',
   trakt: {
     clientId: process.env.TRAKT_CLIENT_ID || '',
     clientSecret: process.env.TRAKT_CLIENT_SECRET || '',
@@ -28,6 +28,10 @@ const config = {
     .map((o) => o.trim())
     .filter(Boolean),
 };
+
+if (!config.tmdbApiKey) {
+  console.warn('[config] WARNING: TMDB_API_KEY is not set. Catalog and TMDB metadata features will be unavailable.');
+}
 
 config.trakt.enabled = Boolean(config.trakt.clientId && config.trakt.clientSecret);
 
