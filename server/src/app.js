@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -10,7 +11,7 @@ const { HttpError } = require('./lib/errors');
 const app = express();
 
 app.set('trust proxy', 1); // behind Vercel's proxy — needed for per-IP rate limits
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(
   cors({
     origin(origin, cb) {
@@ -26,6 +27,9 @@ app.use(express.json({ limit: '1mb' }));
 
 app.get('/', (_req, res) => res.json({ name: 'Zenith Tracker API', version: 2 }));
 app.get('/health', (_req, res) => res.json({ ok: true }));
+app.get('/privacy', (_req, res) => {
+  res.sendFile(path.join(__dirname, 'privacy.html'));
+});
 
 // Touches the database. A weekly scheduler ping here keeps a free Atlas cluster
 // from auto-pausing after 60 idle days.
