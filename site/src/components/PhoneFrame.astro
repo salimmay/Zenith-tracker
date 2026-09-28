@@ -1,0 +1,61 @@
+---
+// A CSS-drawn phone around an app screenshot. Screens are 1170×2532 (390×844 @3x).
+interface Props {
+  src: string;
+  alt: string;
+  eager?: boolean;
+}
+const { src, alt, eager = false } = Astro.props;
+// Each screen ships a 600px copy (`name-600.webp`): the frame is ≤300px wide, so 2x screens need no more.
+const small = src.replace(/\.webp$/, '-600.webp');
+---
+
+<div class="phone">
+  <img
+    src={small}
+    srcset={`${small} 600w, ${src} 1170w`}
+    sizes="(min-width: 900px) 300px, min(100vw - 32px, 300px)"
+    alt={alt}
+    width="1170"
+    height="2532"
+    loading={eager ? 'eager' : 'lazy'}
+    fetchpriority={eager ? 'high' : 'auto'}
+    decoding="async"
+  />
+</div>
+
+<style>
+  .phone {
+    position: relative;
+    width: min(100%, 300px);
+    aspect-ratio: 1170 / 2532;
+    padding: 10px;
+    border-radius: 46px;
+    background: #050707;
+    box-shadow:
+      inset 0 0 0 1.5px #2a3232,
+      0 0 0 1px rgba(0, 0, 0, 0.6),
+      0 40px 80px -30px rgba(0, 0, 0, 0.8);
+  }
+  .phone::before {
+    /* camera punch-hole */
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    margin-left: -6px;
+    border-radius: 50%;
+    background: #000;
+    box-shadow: inset 0 0 0 2px #111;
+    z-index: 1;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 36px;
+    background: var(--background);
+  }
+</style>

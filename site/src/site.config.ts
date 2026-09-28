@@ -10,7 +10,7 @@ const config = {
   /** Google Play listing. Leave null until the listing is live: the button shows "Coming soon". */
   playStoreUrl: null as string | null,
   /** Shown on /support. Null hides the email and shows a note instead. */
-  supportEmail: null as string | null,
+  supportEmail: 'salimmay.dev@gmail.com' as string | null,
   /** AdMob publisher id (pub-…). Null keeps app-ads.txt empty. */
   admobPublisherId: null as string | null,
 };

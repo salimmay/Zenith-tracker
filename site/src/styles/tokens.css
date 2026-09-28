@@ -1,0 +1,49 @@
+/* Mirrors zenith-client/src/theme.ts — keep the two in step so the site and app match. */
+:root {
+  color-scheme: dark;
+
+  --background: #0e1111;
+  --surface: #161b1b;
+  --surface-raised: #1e2525;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.12);
+
+  --text: #f2f5f4;
+  --text-muted: #a3aeac;
+  --text-faint: #7d8886; /* app uses #6b7775; lifted here for 4.5:1 contrast on small web text */
+
+  --teal: #80cbc4;
+  --teal-strong: #26a69a;
+  --teal-soft: rgba(128, 203, 196, 0.14);
+  --teal-deep: #1c3b38;
+  --on-teal: #06201d;
+  --amber: #f2b45c;
+  --amber-soft: rgba(242, 180, 92, 0.14);
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-xxl: 32px;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-pill: 999px;
+
+  --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  --gutter: 16px;
+  --content: 1120px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 32px;
+  }
+}

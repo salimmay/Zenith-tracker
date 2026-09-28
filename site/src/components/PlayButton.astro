@@ -1,0 +1,93 @@
+---
+import { site } from '../site.config.ts';
+
+// Two launch states: "Coming soon" (not a link) until playStoreUrl is set.
+// At launch, consider swapping in Google's official badge artwork.
+interface Props {
+  size?: 'md' | 'lg';
+}
+const { size = 'lg' } = Astro.props;
+const url = site.playStoreUrl;
+---
+
+{
+  url ? (
+    <a class:list={['play', size]} href={url} rel="noopener">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 3.5v17a1 1 0 0 0 1.5.86l14-8.5a1 1 0 0 0 0-1.72l-14-8.5A1 1 0 0 0 5 3.5Z" fill="currentColor" />
+      </svg>
+      <span class="label">
+        <small>Get it on</small>
+        Google Play
+      </span>
+    </a>
+  ) : (
+    <span class:list={['play', 'soon', size]} role="note">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 3.5v17a1 1 0 0 0 1.5.86l14-8.5a1 1 0 0 0 0-1.72l-14-8.5A1 1 0 0 0 5 3.5Z" fill="currentColor" />
+      </svg>
+      <span class="label">
+        <small>Coming soon to</small>
+        Google Play
+      </span>
+    </span>
+  )
+}
+
+<style>
+  .play {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 22px 10px 18px;
+    border-radius: var(--radius-md);
+    background: var(--teal);
+    color: var(--on-teal);
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    box-shadow: 0 8px 30px -10px rgba(128, 203, 196, 0.55);
+    transition:
+      transform 160ms var(--ease-out),
+      box-shadow 200ms ease;
+  }
+  .play.md {
+    font-size: 16px;
+    padding: 8px 18px 8px 14px;
+  }
+  a.play:active {
+    transform: scale(0.97);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    a.play:hover {
+      box-shadow: 0 10px 36px -8px rgba(128, 203, 196, 0.7);
+    }
+  }
+  .soon {
+    background: var(--surface-raised);
+    color: var(--text);
+    box-shadow: inset 0 0 0 1px var(--border-strong);
+    cursor: default;
+  }
+  .soon .icon {
+    color: var(--teal);
+  }
+  .icon {
+    width: 22px;
+    height: 22px;
+    flex: none;
+  }
+  .label {
+    display: flex;
+    flex-direction: column;
+  }
+  small {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+</style>

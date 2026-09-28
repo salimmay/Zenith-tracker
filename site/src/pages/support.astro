@@ -1,0 +1,88 @@
+---
+import Base from '../layouts/Base.astro';
+import Prose from '../components/Prose.astro';
+import { site } from '../site.config.ts';
+
+const faq = [
+  {
+    q: 'How do I delete my account?',
+    a: 'Open Settings in the app and choose Delete account. Your account, library and watch history are removed permanently. Guest libraries live only on your phone; uninstalling the app removes them.',
+  },
+  {
+    q: 'How do I connect Trakt?',
+    a: 'In Settings, tap Connect Trakt and enter the code shown at trakt.tv/activate. Zenith then keeps your watched episodes in sync both ways. You can disconnect at any time from the same screen.',
+  },
+  {
+    q: 'Where do show and movie details come from?',
+    a: 'From The Movie Database (TMDB). If a title, poster or episode looks wrong, it can be corrected on themoviedb.org and Zenith will pick it up.',
+  },
+  {
+    q: 'Can I control the ads I see?',
+    a: 'Yes. Ads are small banners, never full screen. In the EEA and UK you can change your choices any time in Settings → Ad privacy choices; declining still works, you just see non-personalized ads.',
+  },
+];
+---
+
+<Base title="Support" description="Get help with Zenith: contact, account deletion, Trakt sync, data sources and ads.">
+  <Prose title="Support" lede="Answers to common questions, and how to reach us.">
+    <section class="contact">
+      {
+        site.supportEmail ? (
+          <p>
+            Something not working, or an idea for Zenith? Email{' '}
+            <a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a> and we'll get back to you.
+          </p>
+        ) : (
+          <p>A support address is on its way. In the meantime, the answers below cover the most common questions.</p>
+        )
+      }
+    </section>
+
+    <h2>Frequently asked</h2>
+    {
+      faq.map(({ q, a }) => (
+        <details>
+          <summary>{q}</summary>
+          <p>{a}</p>
+        </details>
+      ))
+    }
+  </Prose>
+</Base>
+
+<style>
+  .contact {
+    padding: 20px 22px;
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  details {
+    border-bottom: 1px solid var(--border);
+  }
+  summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 0;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::after {
+    content: '+';
+    color: var(--teal);
+    font-size: 20px;
+    line-height: 1;
+    transition: transform 200ms var(--ease-out);
+  }
+  details[open] summary::after {
+    transform: rotate(45deg);
+  }
+  details p {
+    padding-bottom: 18px;
+  }
+</style>

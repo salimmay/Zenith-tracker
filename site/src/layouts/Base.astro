@@ -1,0 +1,90 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../site.config.ts';
+
+interface Props {
+  title: string;
+  description: string;
+  /** 404 pages have no canonical address. */
+  canonical?: boolean;
+}
+
+const { title, description, canonical = true } = Astro.props;
+const fullTitle = title === site.name ? `${site.name} — ${site.tagline}` : `${title} · ${site.name}`;
+const url = new URL(Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/'), site.siteUrl).href;
+const ogImage = new URL('/og-image.png', site.siteUrl).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0E1111" />
+    {canonical && <link rel="canonical" href={url} />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="96x96" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      // Fade sections in once as they scroll into view.
+      const items = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        },
+        { rootMargin: '0px 0px -10% 0px' }
+      );
+      items.forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>
+
+<style>
+  .skip {
+    position: absolute;
+    left: var(--gutter);
+    top: -48px;
+    z-index: 100;
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    background: var(--teal);
+    color: var(--on-teal);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .skip:focus {
+    top: 12px;
+  }
+</style>

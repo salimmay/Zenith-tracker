@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zenith-tracker-api.web.app/sitemap-index.xml

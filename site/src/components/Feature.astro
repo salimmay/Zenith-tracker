@@ -1,0 +1,87 @@
+---
+import PhoneFrame from './PhoneFrame.astro';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  body: string;
+  points: string[];
+  screen: string;
+  alt: string;
+  /** Screenshot on the left on wide screens. */
+  flip?: boolean;
+}
+const { eyebrow, title, body, points, screen, alt, flip = false } = Astro.props;
+---
+
+<section class:list={['feature', { flip }]} data-feature>
+  <div class="text" data-reveal>
+    <p class="eyebrow">{eyebrow}</p>
+    <h2>{title}</h2>
+    <p class="body">{body}</p>
+    <ul>
+      {points.map((p) => <li>{p}</li>)}
+    </ul>
+  </div>
+  <div class="visual" data-reveal style="--reveal-delay: 80ms">
+    <PhoneFrame src={screen} alt={alt} />
+  </div>
+</section>
+
+<style>
+  .feature {
+    display: grid;
+    gap: 36px;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .feature {
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+    .flip .text {
+      order: 2;
+    }
+  }
+  .text {
+    display: grid;
+    gap: 14px;
+    max-width: 480px;
+  }
+  h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+  .body {
+    color: var(--text-muted);
+    font-size: 17px;
+  }
+  ul {
+    display: grid;
+    gap: 10px;
+    margin: 6px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  li {
+    position: relative;
+    padding-left: 26px;
+    color: var(--text);
+  }
+  li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.45em;
+    width: 14px;
+    height: 8px;
+    border-left: 2px solid var(--teal);
+    border-bottom: 2px solid var(--teal);
+    transform: rotate(-45deg) translate(1px, -2px);
+  }
+  .visual {
+    display: grid;
+    place-items: center;
+  }
+</style>

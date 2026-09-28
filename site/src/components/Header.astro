@@ -1,0 +1,61 @@
+---
+import Logo from './Logo.astro';
+---
+
+<header class="header">
+  <div class="container bar">
+    <a class="brand" href="/" aria-label="Zenith home">
+      <Logo size={30} />
+      <span>Zenith</span>
+    </a>
+    <a class="cta" href="/#download">Get the app</a>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(14, 17, 17, 0.72);
+    backdrop-filter: saturate(160%) blur(14px);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text);
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+  .cta {
+    padding: 8px 14px;
+    border-radius: var(--radius-pill);
+    background: var(--teal-soft);
+    color: var(--teal);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition:
+      background-color 160ms ease,
+      transform 160ms var(--ease-out);
+  }
+  .cta:active {
+    transform: scale(0.97);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .cta:hover {
+      background: rgba(128, 203, 196, 0.22);
+    }
+  }
+</style>

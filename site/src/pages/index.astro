@@ -1,3 +1,84 @@
 ---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Feature from '../components/Feature.astro';
+import HighlightGrid from '../components/HighlightGrid.astro';
+import PrivacyNote from '../components/PrivacyNote.astro';
+import PlayButton from '../components/PlayButton.astro';
+import Logo from '../components/Logo.astro';
+import { site } from '../site.config.ts';
 ---
-<html lang="en"><body><h1>Zenith</h1></body></html>
+
+<Base
+  title={site.name}
+  description="Zenith is a free TV, movie and anime tracker. Swipe to mark episodes watched, see what airs next, and watch your stats grow. No account needed."
+>
+  <Hero />
+
+  <div class="container stack">
+    <Feature
+      eyebrow="Up Next"
+      title="One swipe and you're caught up."
+      body="Every show you're watching, lined up with the exact next episode. Swipe the card and Zenith logs it, confirms it and moves you on."
+      points={['Picks up across seasons automatically', 'Undo in one tap if you slipped', 'Six ways to sort, from recently watched to fewest left']}
+      screen="/screens/upnext.webp"
+      alt="Up Next cards with the next episode, progress and a swipe-to-watch action"
+    />
+    <Feature
+      eyebrow="Upcoming"
+      title="Know what's airing before it airs."
+      body="A timeline of new episodes from the shows you follow, so a premiere never sneaks past you."
+      points={['A countdown to every episode, nearest first', 'Premieres and finales are called out', 'Only your shows, no noise']}
+      screen="/screens/upcoming.webp"
+      alt="Upcoming timeline listing new episodes by air date"
+      flip
+    />
+    <Feature
+      eyebrow="Stats"
+      title="See how your watching adds up."
+      body="Hours watched this month, this year or all time, a monthly chart, and your library by status."
+      points={['TV and movies separately or together', 'Episodes, movies and time at a glance', 'Every watch counts, even from guest mode']}
+      screen="/screens/stats.webp"
+      alt="Profile stats with time watched and a monthly chart"
+    />
+
+    <HighlightGrid />
+    <PrivacyNote />
+
+    <section id="download" class="download" data-reveal>
+      <Logo size={64} />
+      <h2>Your next episode is waiting.</h2>
+      <p>Zenith is free on Android. Pick up right where you left off.</p>
+      <PlayButton />
+    </section>
+  </div>
+</Base>
+
+<style>
+  .stack {
+    display: grid;
+    gap: clamp(88px, 12vw, 140px);
+    padding-top: 48px;
+  }
+  .download {
+    display: grid;
+    justify-items: center;
+    gap: 16px;
+    padding: 56px 24px;
+    border-radius: 28px;
+    text-align: center;
+    background:
+      radial-gradient(60% 80% at 50% 0%, rgba(128, 203, 196, 0.16), transparent 70%),
+      var(--surface);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  .download h2 {
+    font-size: clamp(28px, 4.5vw, 44px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+  .download p {
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+</style>

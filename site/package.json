@@ -7,8 +7,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "test": "node --test \"test/*.test.mjs\"",
-    "deploy": "astro build && firebase deploy --only hosting"
+    "test": "node --test --test-concurrency=1 \"test/*.test.mjs\"",
+    "deploy": "astro build && npx -y firebase-tools deploy --only hosting"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

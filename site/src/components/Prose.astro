@@ -1,0 +1,64 @@
+---
+// Long-form text pages (privacy, support): a readable column with a page title.
+interface Props {
+  title: string;
+  lede?: string;
+}
+const { title, lede } = Astro.props;
+---
+
+<article class="container prose">
+  <header>
+    <h1>{title}</h1>
+    {lede && <p class="lede">{lede}</p>}
+  </header>
+  <slot />
+</article>
+
+<style>
+  .prose {
+    max-width: calc(720px + var(--gutter) * 2);
+    padding-top: 56px;
+  }
+  header {
+    margin-bottom: 40px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+  h1 {
+    font-size: clamp(34px, 6vw, 48px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+  .lede {
+    margin-top: 10px;
+    color: var(--text-muted);
+  }
+  .prose :global(h2) {
+    margin: 40px 0 12px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .prose :global(h3) {
+    margin: 24px 0 8px;
+    font-size: 17px;
+    font-weight: 700;
+  }
+  .prose :global(p),
+  .prose :global(li) {
+    color: #c9d1cf;
+  }
+  .prose :global(p + p) {
+    margin-top: 12px;
+  }
+  .prose :global(ul) {
+    display: grid;
+    gap: 8px;
+    margin: 12px 0;
+    padding-left: 22px;
+  }
+  .prose :global(strong) {
+    color: var(--text);
+  }
+</style>

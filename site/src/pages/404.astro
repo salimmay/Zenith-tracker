@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Page not found" description="This page doesn't exist." canonical={false}>
+  <section class="container lost">
+    <p class="eyebrow">404</p>
+    <h1>This episode doesn't exist.</h1>
+    <p>The page you're looking for was moved or never aired.</p>
+    <a href="/">Back to Zenith</a>
+  </section>
+</Base>
+
+<style>
+  .lost {
+    display: grid;
+    justify-items: center;
+    gap: 14px;
+    padding-block: 120px 40px;
+    text-align: center;
+  }
+  h1 {
+    font-size: clamp(30px, 5vw, 44px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+  p:not(.eyebrow) {
+    color: var(--text-muted);
+  }
+  a {
+    margin-top: 8px;
+    padding: 10px 18px;
+    border-radius: var(--radius-pill);
+    background: var(--teal);
+    color: var(--on-teal);
+    font-weight: 700;
+    text-decoration: none;
+  }
+</style>

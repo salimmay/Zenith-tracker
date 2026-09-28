@@ -1,0 +1,90 @@
+---
+import Base from '../layouts/Base.astro';
+import Prose from '../components/Prose.astro';
+import { site } from '../site.config.ts';
+---
+
+<Base title="Privacy Policy" description="How Zenith handles your data: what is collected, why, and how to delete it.">
+  <Prose title="Privacy Policy" lede="Last updated: September 28, 2026">
+    <h2>1. Overview</h2>
+    <p>
+      Zenith ("we", "our" or "us") provides the Zenith mobile app and the service behind it. We believe in privacy by
+      design: <strong>Zenith works fully without an account</strong>. This policy explains what information is
+      collected, how it is used and how it is protected.
+    </p>
+
+    <h2>2. Information we collect</h2>
+    <h3>A. Guest mode (no account)</h3>
+    <p>
+      If you use Zenith without an account, your library, watch progress and preferences are stored
+      <strong>only on your device</strong>. They are never sent to our account database unless you sign up and choose
+      to back them up.
+    </p>
+    <h3>B. Account (optional)</h3>
+    <p>If you create an account to sync your library across devices, we store:</p>
+    <ul>
+      <li><strong>Username and email</strong>, used for signing in and account recovery.</li>
+      <li>
+        <strong>Password</strong>, stored only as a bcrypt hash. We never see or store your password in plain text.
+      </li>
+      <li><strong>Library and watch history</strong>: the shows, movies, seasons and episodes you track.</li>
+    </ul>
+    <h3>C. Technical logs</h3>
+    <p>
+      When the app talks to our servers, basic diagnostic data (such as your IP address, used temporarily for rate
+      limiting, and error reports) may be processed to keep the service reliable and prevent abuse.
+    </p>
+
+    <h2>3. Third parties and advertising</h2>
+    <h3>A. The Movie Database (TMDB)</h3>
+    <p>
+      Zenith gets public movie and TV information from TMDB. Your personal information, watch history and email are
+      never shared with TMDB.
+    </p>
+    <h3>B. Trakt (optional)</h3>
+    <p>
+      If you connect your Trakt account, Zenith syncs your watched episodes with your Trakt profile. You can disconnect
+      Trakt at any time in Settings.
+    </p>
+    <h3>C. Google AdMob</h3>
+    <p>
+      The mobile app shows small banner ads from Google AdMob. Google may use device identifiers (such as the Android
+      Advertising ID) to show personalized or non-personalized ads, depending on your consent.
+    </p>
+    <p>
+      <strong>Your choices:</strong> in the EEA and UK you'll see a Google-certified consent form. You can change your
+      ad choices at any time in <strong>Settings → Ad privacy choices</strong>.
+    </p>
+
+    <h2>4. Security and storage</h2>
+    <p>
+      All traffic between the app and our servers is encrypted with <strong>HTTPS (TLS)</strong>. Account data is
+      stored in MongoDB Atlas, encrypted at rest and in transit.
+    </p>
+
+    <h2>5. Your rights and deleting your data</h2>
+    <p>
+      Your data belongs to you. You can delete your account and all of its watch history at any time in the app under
+      <strong>Settings → Delete account</strong>{site.supportEmail && ', or by emailing us'}. Deletion is permanent.
+    </p>
+
+    <h2>6. Children</h2>
+    <p>Zenith is not directed at children under 13, and we do not knowingly collect their personal information.</p>
+
+    <h2>7. Contact</h2>
+    <p>
+      Questions about this policy?
+      {
+        site.supportEmail ? (
+          <>
+            Email <a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a>.
+          </>
+        ) : (
+          <>
+            See the <a href="/support">support page</a>.
+          </>
+        )
+      }
+    </p>
+  </Prose>
+</Base>

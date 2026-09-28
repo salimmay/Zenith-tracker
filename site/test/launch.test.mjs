@@ -26,7 +26,7 @@ test('blank urls count as not set', () => {
 });
 
 test('built app-ads.txt follows the config', () => {
-  assert.equal(build('prelaunch').read('app-ads.txt'), '');
+  assert.equal(build('prelaunch', { SUPPORT_EMAIL: '' }).read('app-ads.txt'), '');
   const launched = build('launched', {
     ADMOB_PUBLISHER_ID: '1234567890123456',
     PLAY_STORE_URL: 'https://play.google.com/store/apps/details?id=com.salimmay.zenith',
