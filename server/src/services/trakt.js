@@ -61,7 +61,7 @@ async function accessTokenFor(userId) {
       refresh_token: user.trakt.refreshToken,
       client_id: config.trakt.clientId,
       client_secret: config.trakt.clientSecret,
-      redirect_uri: 'urn:ietf:wg:oauth:2.0:oob',
+      redirect_uri: config.trakt.redirectUri,
       grant_type: 'refresh_token',
     });
     return saveTokens(userId, data);
@@ -71,7 +71,7 @@ async function accessTokenFor(userId) {
 }
 
 // ─── Device-code connect flow ────────────────────────────────────────────────
-// Suits a phone app: no redirect URI to register. The app shows a short code,
+// Suits a phone app: no redirect back into the app. The app shows a short code,
 // the user enters it on trakt.tv/activate, and the app polls until it's done.
 
 async function startDeviceAuth() {
