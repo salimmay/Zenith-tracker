@@ -23,6 +23,7 @@ const config = {
     // Must match a Redirect URI registered on the Trakt app. Device login never
     // uses it, but Trakt checks it when refreshing tokens.
     redirectUri: process.env.TRAKT_REDIRECT_URI || 'https://zenith-tracker-api.web.app/trakt',
+    apiUrl: process.env.TRAKT_API_URL || 'https://api.trakt.tv', // tests point this at a fake
   },
   // Comma-separated list of allowed browser origins. Native apps send no
   // Origin header and are always allowed.

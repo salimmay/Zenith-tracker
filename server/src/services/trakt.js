@@ -8,8 +8,15 @@ const library = require('./library');
 const history = require('./history');
 const { HttpError } = require('../lib/errors');
 
-const api = axios.create({ baseURL: 'https://api.trakt.tv', timeout: 15000 });
-const REFRESH_MARGIN_MS = 24 * 60 * 60 * 1000;
+// Trakt sits behind Cloudflare, which blocks clients that don't identify themselves.
+const api = axios.create({
+  baseURL: config.trakt.apiUrl,
+  timeout: 15000,
+  headers: { 'User-Agent': 'Zenith/1.0 (+https://zenith-tracker-api.web.app)' },
+});
+// Access tokens last 24 hours. Refresh shortly before expiry, not on every call:
+// refresh tokens are single-use, so needless refreshes invite races.
+const REFRESH_MARGIN_MS = 10 * 60 * 1000;
 const TOKEN_FIELDS = '+trakt.accessToken +trakt.refreshToken +trakt.expiresAt';
 
 function ensureEnabled() {
@@ -56,17 +63,31 @@ async function accessTokenFor(userId) {
   const expiresAt = user.trakt.expiresAt?.getTime() ?? 0;
   if (expiresAt - Date.now() > REFRESH_MARGIN_MS) return user.trakt.accessToken;
 
+  // One refresh per user at a time: concurrent requests share it. A second
+  // refresh with the same single-use token would be rejected as revoked.
+  const key = String(userId);
+  if (!refreshing.has(key)) {
+    refreshing.set(key, refresh(userId, user.trakt.refreshToken).finally(() => refreshing.delete(key)));
+  }
+  return refreshing.get(key);
+}
+
+const refreshing = new Map();
+
+async function refresh(userId, refreshToken) {
   try {
     const { data } = await api.post('/oauth/token', {
-      refresh_token: user.trakt.refreshToken,
+      refresh_token: refreshToken,
       client_id: config.trakt.clientId,
       client_secret: config.trakt.clientSecret,
       redirect_uri: config.trakt.redirectUri,
       grant_type: 'refresh_token',
     });
-    return saveTokens(userId, data);
-  } catch {
-    throw await disconnectedError(userId);
+    return await saveTokens(userId, data);
+  } catch (err) {
+    // Only a rejected grant means the user revoked access. Outages keep the link.
+    if ([400, 401].includes(err.response?.status)) throw await disconnectedError(userId);
+    throw new HttpError(502, 'Could not reach Trakt, try again shortly');
   }
 }
 
@@ -150,11 +171,18 @@ function historyRange(tmdbId, from, to, order, watchedAt) {
   return seasons.length ? { ids: { tmdb: tmdbId }, seasons } : null;
 }
 
-async function postHistory(userId, token, body, method = 'history') {
+async function postHistory(userId, token, body, method = 'history', attempt = 1) {
   try {
     await api.post(`/sync/${method}`, body, { headers: baseHeaders(token) });
   } catch (err) {
-    if (err.response?.status === 401) throw await disconnectedError(userId);
+    const status = err.response?.status;
+    if (status === 401) throw await disconnectedError(userId);
+    // Writes are limited to about one per second; wait as told and try again.
+    if (status === 429 && attempt < 4) {
+      const wait = Math.min(Number(err.response.headers['retry-after']) || 1, 10);
+      await new Promise((r) => setTimeout(r, wait * 1000));
+      return postHistory(userId, token, body, method, attempt + 1);
+    }
     throw err;
   }
 }

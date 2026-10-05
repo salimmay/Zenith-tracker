@@ -108,7 +108,10 @@ export const pollTraktDevice = (deviceCode: string) =>
 export function useTraktSync() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: () => api<{ added: number; updated: number; pushed: number; failed: number }>('/trakt/sync', { method: 'POST' }),
+    mutationFn: () => api<{ added: number; updated: number; pushed: number; failed: number }>('/trakt/sync', {
+        method: 'POST',
+        timeoutMs: 120_000, // a first sync of a big Trakt library takes a while
+      }),
     onSuccess: (s) => {
       invalidateLibrary(qc);
       qc.invalidateQueries({ queryKey: ['trakt'] });

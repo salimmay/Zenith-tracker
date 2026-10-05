@@ -28,12 +28,16 @@ export class ApiError extends Error {
   }
 }
 
-type Options = { method?: string; body?: unknown; auth?: boolean; signal?: AbortSignal };
+/** `timeoutMs` overrides the default for slow-by-design calls (a full Trakt sync). */
+type Options = { method?: string; body?: unknown; auth?: boolean; signal?: AbortSignal; timeoutMs?: number };
 
 /** A request that hasn't answered by now is treated as failed, not left spinning. */
 const TIMEOUT_MS = 15_000;
 
-export async function api<T>(path: string, { method = 'GET', body, auth = true, signal }: Options = {}): Promise<T> {
+export async function api<T>(
+  path: string,
+  { method = 'GET', body, auth = true, signal, timeoutMs = TIMEOUT_MS }: Options = {}
+): Promise<T> {
   const token = auth ? useSession.getState().token : null;
 
   // Our own controller, so both the timeout and the caller's cancel (React Query) abort the fetch.
@@ -42,7 +46,7 @@ export async function api<T>(path: string, { method = 'GET', body, auth = true, 
   const timer = setTimeout(() => {
     timedOut = true;
     controller.abort();
-  }, TIMEOUT_MS);
+  }, timeoutMs);
   const onCallerAbort = () => controller.abort();
   signal?.addEventListener('abort', onCallerAbort);
 
