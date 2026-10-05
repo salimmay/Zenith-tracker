@@ -1,24 +1,42 @@
 {
+  "_comment": [
+    "This site has moved to https://salimos.cc/zenith, which is now the canonical",
+    "home of the landing page, the privacy policy and the support page. What is",
+    "left here is a redirect, so the old address keeps working and the two copies",
+    "stop competing for the same search results.",
+    "",
+    "Deploying this needs TWO more things done by hand, in this order:",
+    "  1. Set NEXT_PUBLIC_SITE_URL on the SalimOS Vercel project. Without it the",
+    "     new pages emit canonical and sitemap URLs pointing at localhost, and",
+    "     redirecting traffic to a page Google cannot canonicalise is worse than",
+    "     leaving this one up. Do not deploy this file before that is fixed.",
+    "  2. Change the Play Console listing's Website field to the new address, and",
+    "     EXPO_PUBLIC_PRIVACY_URL in the app to https://salimos.cc/zenith/privacy.",
+    "",
+    "app-ads.txt is served from salimos.cc/app-ads.txt now (AdMob reads it from",
+    "the ROOT of the listed domain, never from a subdirectory). It is empty until",
+    "there is a publisher id; see app/app-ads.txt/route.ts in the SalimOS repo."
+  ],
   "hosting": {
     "public": "dist",
     "cleanUrls": true,
     "trailingSlash": false,
     "ignore": ["firebase.json", "**/.*"],
-    "headers": [
+    "redirects": [
       {
-        "source": "/_astro/**",
-        "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+        "source": "/privacy",
+        "destination": "https://salimos.cc/zenith/privacy",
+        "type": 301
       },
       {
-        "source": "**/*.@(webp|png|svg)",
-        "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }]
+        "source": "/support",
+        "destination": "https://salimos.cc/zenith/support",
+        "type": 301
       },
       {
-        "source": "/app-ads.txt",
-        "headers": [
-          { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
-          { "key": "Cache-Control", "value": "public, max-age=3600" }
-        ]
+        "source": "**",
+        "destination": "https://salimos.cc/zenith",
+        "type": 301
       }
     ]
   }
